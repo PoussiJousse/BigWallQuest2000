@@ -15,6 +15,7 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ### v0.17 · 2026-10-20 — Voies de Mountain Project
 - 🧗 **Import de l'export « Route Finder » de Mountain Project tel quel** (⚙ Options → 📥 Importer des voies) : massif et secteur tirés du chemin du lieu, cotations nettoyées (`5.10b/c` → 5.10b ; `5.9 PG13` → 5.9, l'engagement est noté dans le type), longueurs, n° de voie pour éviter les doublons.
 - 🗂 **Voies partagées par la cordée** : un CSV déposé dans le dossier `voies/` du dépôt privé arrive tout seul sur tous les téléphones à la synchro. Un fichier modifié remplace ses voies ; un fichier retiré les retire.
+- 🧹 **Pas de doublons avec la banque intégrée** : même nom + même cotation + un mot de lieu en commun (« Mount Orford (Pic aux Corbeaux) » = « Orford (Pic aux Corbeaux) »). Testé sur 9 régions du Québec : 2387 voies MP → 2122 nouvelles, 155 déjà dans le jeu.
 - 🔒 Colonnes ignorées : notes perso (`Your Stars`), GPS, URL (sauf le n° de voie). Les voies ne sont jamais publiées dans le dépôt du jeu.
 
 ### v0.16.1 · 2026-10-20 — Les amis dans « Personnages »

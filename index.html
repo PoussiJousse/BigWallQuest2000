@@ -5282,10 +5282,19 @@ function rtParse(txt, src) {
   }
   return { out, f, mp };
 }
+/* doublon avec la banque intégrée : même nom + cotation ET un mot significatif commun dans le lieu (MP écrit « Mount Orford (Pic aux Corbeaux) », la banque « Orford (Pic aux Corbeaux) ») */
+const rtNorm = (t) => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+const rtTok = (t) => new Set(rtNorm(t).split(/[^a-z0-9]+/).filter((w) => w.length >= 4 && !/^(mont|mount|parc|park|national|vallee|riviere|lake|falaise|secteur|sector|wall|mur)$/.test(w)));
+var RTB = null;
+function rtBank(x) {
+  if (!RTB) { RTB = new Map(); op.forEach((r) => { const k = rtNorm(r.n) + "|" + r.c; RTB.has(k) || RTB.set(k, []); RTB.get(k).push(rtTok(r.m + " " + (r.s || ""))); }); }
+  const L = RTB.get(rtNorm(x.n) + "|" + x.c); if (!L) return false;
+  const T = rtTok(x.m + " " + (x.s || "")); return L.some((B) => [...B].some((w) => T.has(w)));
+}
 function ky(i) {
   const P = rtParse(i); if (P.err) return nt(P.err);
   const d = new Set(hr().map(rtKey)); let h = 0, f = P.f;
-  for (const x of P.out) d.has(rtKey(x)) ? f++ : (d.add(rtKey(x)), ie.routes.push(x), h++);
+  for (const x of P.out) d.has(rtKey(x)) || rtBank(x) ? f++ : (d.add(rtKey(x)), ie.routes.push(x), h++);
   Tt(), Vu(), nt(`${h} voie${h > 1 ? "s" : ""} importée${h > 1 ? "s" : ""}${P.mp ? " (Mountain Project)" : ""}${f ? ` · ${f} ignorée${f > 1 ? "s" : ""} (doublons / vides)` : ""}`);
 }
 /* v0.15.1 · mises à jour : le jeu demande lui-même une nouvelle version à chaque ouverture et retour dans l'app (iOS vérifie rarement seul) ;
@@ -7619,7 +7628,7 @@ async function ghRoutes() {
     const r = await ghApi("/contents/" + GHV + "/" + encodeURIComponent(f.name), { raw: true }); if (!r.ok) continue;
     const src = "cordee:" + f.name, P = rtParse(await r.text(), src); if (P.err) continue;
     const keep = ie.routes.filter((x) => x.src !== src), d = new Set(op.concat(keep).map(rtKey));
-    ie.routes = keep.concat(P.out.filter((x) => !d.has(rtKey(x)))), g.vs[f.name] = f.sha, up++;
+    ie.routes = keep.concat(P.out.filter((x) => !d.has(rtKey(x)) && !rtBank(x))), g.vs[f.name] = f.sha, up++;
   }
   return { up, n: ie.routes.filter((x) => x.src && x.src.startsWith("cordee:")).length, files: L.length };
 }
