@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.16.1)
-Généré le 2026-10-20 · version courante : **L7 v0.16.1** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.17)
+Généré le 2026-10-20 · version courante : **L7 v0.17** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,11 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.17 · 2026-10-20 — Voies de Mountain Project
+- 🧗 **Import de l'export « Route Finder » de Mountain Project tel quel** (⚙ Options → 📥 Importer des voies) : massif et secteur tirés du chemin du lieu, cotations nettoyées (`5.10b/c` → 5.10b ; `5.9 PG13` → 5.9, l'engagement est noté dans le type), longueurs, n° de voie pour éviter les doublons.
+- 🗂 **Voies partagées par la cordée** : un CSV déposé dans le dossier `voies/` du dépôt privé arrive tout seul sur tous les téléphones à la synchro. Un fichier modifié remplace ses voies ; un fichier retiré les retire.
+- 🔒 Colonnes ignorées : notes perso (`Your Stars`), GPS, URL (sauf le n° de voie). Les voies ne sont jamais publiées dans le dépôt du jeu.
 
 ### v0.16.1 · 2026-10-20 — Les amis dans « Personnages »
 - 👥 **« Choisis ton grimpeur » montre aussi les persos de la cordée**, après les tiens (point carré) : leur look et leur radar, à regarder seulement. Pas de Choisir, Look ni Supprimer sur un perso d'ami.
@@ -126,7 +131,7 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 - Réseau : le propre site du jeu (version hébergée GitHub Pages) ; depuis v0.16, **api.github.com** aussi, seulement si la cordée automatique est activée.
 - Les anciennes sauvegardes se chargent telles quelles.
 
-## Limites connues (v0.16.1)
+## Limites connues (v0.17)
 - Rien n'a été essayé sur un vrai iPhone ni Android : les tests tournent sur un navigateur de test.
 - La texture de roche prend ~1 s à générer sur un ordinateur, davantage sur un vieux téléphone.
 - Sur certaines combinaisons de personnages, la main de l'ami peut chevaucher un peu le joueur dans la scène de réconfort.

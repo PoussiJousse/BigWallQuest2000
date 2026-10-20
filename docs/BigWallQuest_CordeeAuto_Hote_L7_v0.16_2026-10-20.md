@@ -31,6 +31,17 @@
 ## ④ Inviter les amis
 **📤 Inviter un ami** → choisis Signal, SMS ou courriel → envoie. Le message contient le code, le lien et 3 étapes.
 
+## ⑤ Partager des voies Mountain Project (v0.17)
+| # | Où | Quoi |
+|---|---|---|
+| 1 | mountainproject.com/route-finder (Safari : **aA → site pour ordinateur**) | choisis la région → **Find Routes** → **Export CSV** (1000 voies max par fichier) |
+| 2 | github.com → dépôt **Cordee** → **Add file → Create new file** (une seule fois) | nom : `voies/LISEZMOI.md`, texte : « voies de la cordée » → **Commit changes** (GitHub ne crée pas de dossier vide) |
+| 3 | dans le dossier `voies` : **Add file → Upload files** | choisis le CSV (Fichiers → Téléchargements) → **Commit changes** |
+| 4 | jeu → 🪢 Cordée → 🔄 Synchroniser | « 🧗 Voies de la cordée : N » sur tous les téléphones |
+
+- Un fichier par région (ex. `Laurentides.csv`, `Charlevoix.csv`). Pour mettre à jour : réimporte un fichier avec le **même nom**.
+- Les voies restent dans le dépôt **privé** : jamais dans le dépôt public du jeu.
+
 ## Bon à savoir
 - 🔑 **Pire cas si la clé fuit** : quelqu'un modifie ou efface des cartes. Le jeu contrôle chaque carte, donc rien ne peut s'exécuter. Remède : GitHub → la clé → **Revoke**, puis refais ② et ③ et renvoie le message.
 - 🗓 **Expiration** : quand la clé expire, le jeu affiche « clé refusée ». Refais ② et ③, puis renvoie le message.
