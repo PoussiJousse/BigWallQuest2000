@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.14)
-Généré le 2026-10-20 · version courante : **L7 v0.14** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.14.1)
+Généré le 2026-10-20 · version courante : **L7 v0.14.1** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,9 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.14.1 · 2026-10-20 — Nouvelle salle
+- 🪨 **D-Vert escalade** (Sherbrooke, bloc) ajoutée à la liste des salles de bloc.
 
 ### v0.14 · 2026-10-19 — Problèmes Tension Board
 - 🟦 **Bouton « Problème Tension Board »** dans « Gym bloc » : nom du problème, angle du mur (20° → 50°) et nombre d'essais, tout optionnel.
@@ -97,7 +100,7 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 - Réseau : uniquement le propre site du jeu (version hébergée GitHub Pages).
 - Les anciennes sauvegardes se chargent telles quelles.
 
-## Limites connues (v0.14)
+## Limites connues (v0.14.1)
 - Rien n'a été essayé sur un vrai iPhone ni Android : les tests tournent sur un navigateur de test.
 - La texture de roche prend ~1 s à générer sur un ordinateur, davantage sur un vieux téléphone.
 - Sur certaines combinaisons de personnages, la main de l'ami peut chevaucher un peu le joueur dans la scène de réconfort.
