@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" font-family="system-ui,sans-serif" role="img" aria-label="BigWallQuest L7 v0.14 : noter un problème Tension Board en 5 étapes">
+  <rect width="640" height="560" rx="18" fill="#120c24"/>
+  <text x="320" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#ffd36b">🟦 Noter un problème Tension Board</text>
+  <text x="320" y="62" text-anchor="middle" font-size="13" fill="#b9b0dc">BigWallQuest · L7 v0.14 · 2026-10-19 · 100 % local</text>
+  <g font-size="15" fill="#fff">
+    <rect x="40" y="86" width="560" height="54" rx="12" fill="#241c42" stroke="#7c70b8"/>
+    <text x="60" y="119"><tspan font-weight="800" fill="#ff7a2f">1</tspan>  📓 Journal → ＋ (ou séance en cours) → 🪨 Gym bloc</text>
+    <path d="M320 140v18" stroke="#ff7a2f" stroke-width="3"/><path d="M313 152l7 8 7-8" fill="#ff7a2f"/>
+    <rect x="40" y="162" width="560" height="54" rx="12" fill="#241c42" stroke="#7c70b8"/>
+    <text x="60" y="195"><tspan font-weight="800" fill="#ff7a2f">2</tspan>  📍 Choisis la salle (déjà faite si séance en cours)</text>
+    <path d="M320 216v18" stroke="#ff7a2f" stroke-width="3"/><path d="M313 228l7 8 7-8" fill="#ff7a2f"/>
+    <rect x="40" y="238" width="560" height="118" rx="12" fill="#2a2150" stroke="#7dde8a" stroke-width="2"/>
+    <text x="60" y="268"><tspan font-weight="800" fill="#ff7a2f">3</tspan>  Touche  <tspan font-weight="800" fill="#ffd36b">🟦 Problème Tension Board</tspan></text>
+    <text x="92" y="296" font-size="14" fill="#d8d2f2">✏️ Nom du problème   (optionnel)</text>
+    <text x="92" y="320" font-size="14" fill="#d8d2f2">📐 Angle : 20° 25° 30° 35° 40° 45° 50°   (optionnel)</text>
+    <text x="92" y="344" font-size="14" fill="#d8d2f2">🔁 Essais : [ − ]  3  [ + ]   (optionnel)</text>
+    <path d="M320 356v18" stroke="#ff7a2f" stroke-width="3"/><path d="M313 368l7 8 7-8" fill="#ff7a2f"/>
+    <rect x="40" y="378" width="560" height="54" rx="12" fill="#241c42" stroke="#7c70b8"/>
+    <text x="60" y="411"><tspan font-weight="800" fill="#ff7a2f">4</tspan>  🎯 Grade du problème (V ou Font) → Suite ›</text>
+    <path d="M320 432v18" stroke="#ff7a2f" stroke-width="3"/><path d="M313 444l7 8 7-8" fill="#ff7a2f"/>
+    <rect x="40" y="454" width="560" height="54" rx="12" fill="#241c42" stroke="#7c70b8"/>
+    <text x="60" y="487"><tspan font-weight="800" fill="#ff7a2f">5</tspan>  ⚡ Résultat (Flash = 1 essai auto) → 💾 Enregistrer</text>
+  </g>
+  <text x="320" y="538" text-anchor="middle" font-size="13" fill="#7dde8a">🔒 Le problème Tension reste sur ton téléphone : jamais sur ta carte de cordée</text>
+</svg>

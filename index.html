@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="BigWallQuest"><meta name="theme-color" content="#120c24">
-<title>BigWallQuest L7 v0.13</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" href="icon-192.png">
+<title>BigWallQuest L7 v0.14</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" href="icon-192.png">
 
 <style>
 :root{--a:#ff7a2f;--b:#7c5cff;--bg:#0d0a1a;--fg:#f4f1ff;--mut:#a9a3c4;--pn:rgba(18,12,36,.88);--bd:rgba(255,255,255,.18)}
@@ -154,7 +154,7 @@ button.card.sx{display:block;font:inherit;background:rgba(255,255,255,.04);margi
 <div id="diag" hidden><b>⚠ Un problème est survenu</b><div id="dmsg"></div><pre id="dtxt"></pre><div class="small" style="color:#ffd0d0">Ce texte ne contient que : version, navigateur, taille d'écran, étapes de chargement. Aucune donnée de séance. Sélectionne-le et copie-le pour le partager.</div><div class="row"><button class="btn alt sm" data-a="dclose">Fermer</button></div></div>
 
 <section id="boot" class="scr on">
-  <div class="logo">BIGWALL<br>QUEST<small>L7 · v0.13 · 2026-10-16</small></div>
+  <div class="logo">BIGWALL<br>QUEST<small>L7 · v0.14 · 2026-10-19</small></div>
   <div class="panel">
     <div class="pbl"><span id="bl">Chargement…</span><b id="bp">0 %</b></div>
     <div class="pb"><i id="bb"></i></div>
@@ -176,7 +176,7 @@ button.card.sx{display:block;font:inherit;background:rgba(255,255,255,.04);margi
     <button class="btn" data-a="play">▶ Jouer</button>
     <button class="btn alt" data-a="chars">👤 Personnages</button>
     <div class="row" style="margin-top:8px"><button class="btn alt sm" data-a="cine">🎬 Cinématique</button><button class="btn alt sm" data-a="guide">❓ Guide</button><button class="btn alt sm" data-a="opts">⚙ Options</button></div>
-    <div class="foot">L7 · v0.13 · 2026-10-16 · 100 % local</div>
+    <div class="foot">L7 · v0.14 · 2026-10-19 · 100 % local</div>
   </div>
 </section>
 
@@ -5166,7 +5166,19 @@ function Fy(i, e) {
       t.sk = e;
       break;
     case "res":
-      t.res = e;
+      t.res = e, se.t === "bloc" && t.tb && (e === "vu" || e === "flash") && (t.tb.e = 1);
+      break;
+    case "tbon":
+      t.tb ? delete t.tb : t.tb = {};
+      break;
+    case "tba":
+      t.tb && (t.tb.a = t.tb.a === +e ? undefined : +e);
+      break;
+    case "tbe-":
+      t.tb && (t.tb.e = (t.tb.e || 1) > 1 ? t.tb.e - 1 : undefined);
+      break;
+    case "tbe+":
+      t.tb && (t.tb.e = Math.min(99, (t.tb.e || 0) + 1));
       break;
     case "mpf":
       se.mp = !se.mp;
@@ -5293,6 +5305,25 @@ function Wy(i) {
   return /^[=+\-@\t\r]/.test(e) && (e = "'" + e), /[;"\n\r]/.test(e) ? '"' + e.replace(/"/g, '""') + '"' : e;
 }
 var qy = Object.keys(Pi);
+/* v0.14 · problème Tension Board sur une entrée bloc : tb = { n: nom, a: angle, e: essais }, tout optionnel ; jamais envoyé sur les cartes de cordée */
+var TBA = [20, 25, 30, 35, 40, 45, 50];
+function tbNorm(x) {
+  if (!x || typeof x != "object") return null;
+  const o = {}, n = String(x.n == null ? "" : x.n).replace(/\s+/g, " ").trim().slice(0, 40), a = +x.a, e = Math.round(+x.e);
+  n && (o.n = n), TBA.includes(a) && (o.a = a), isFinite(e) && e >= 1 && (o.e = Math.min(99, e));
+  return o;
+}
+var tbText = (t) => t ? ["Tension" + (t.n ? " « " + t.n + " »" : ""), t.a ? t.a + "°" : "", t.e ? t.e + " essai" + (t.e > 1 ? "s" : "") : ""].filter(Boolean).join(" · ") : "";
+var tbStrip = (L) => L.map((e) => { if (!e.tb) return e; const { tb, ...r } = e; return r; });
+function tbBox() {
+  const t = se.d.tb;
+  let h = '<div class="chipsrow" style="margin:8px 0 2px"><button class="ch' + (t ? " on" : "") + '" data-j="tbon">🟦 Problème Tension Board' + (t ? " ✓" : "") + "</button></div>";
+  if (!t) return h;
+  return h + '<div class="card selc"><div class="lbl" style="margin-top:0">Nom du problème (optionnel)</div><input type="text" id="jtbn" maxlength="40" placeholder="Ex. le nom affiché dans l\'app Tension" value="' + et(t.n || "") + '" autocomplete="off">'
+    + '<div class="lbl">Angle du mur (optionnel)</div><div class="chipsrow">' + xu(TBA, "tba", t.a, (c) => c + "°") + "</div>"
+    + '<div class="lbl">Nombre d\'essais (optionnel)</div><div class="stp"><button data-j="tbe-">−</button><b>' + (t.e || "–") + '</b><button data-j="tbe+">+</button></div>'
+    + '<div class="mut" style="margin-top:6px">Reste sur ton téléphone : jamais envoyé sur ta carte de cordée.</div></div>';
+}
 function gp(i) {
   if (!i || i.app !== "BigWallQuest" || !i.data || !Array.isArray(i.data.chars)) throw new Error("ce n'est pas une sauvegarde BigWallQuest");
   if (!(i.format >= 1) || i.format > 1) throw new Error("sauvegarde faite par une version plus récente du jeu");
@@ -5309,6 +5340,8 @@ function gp(i) {
       let _ = Gu(h.g);
       if (!f.gym || _ == null || _ < 0 || _ > 17) return null;
       f.g = t(h.g, 6);
+      const tb = tbNorm(h.tb);
+      tb && (f.tb = tb);
     } else if (h.t === "corde") {
       f.gym = t(h.gym, 60);
       let _ = dr(h.g);
@@ -5538,7 +5571,7 @@ function up(i) {
 function qu(i) {
   let e = (ia[i.res] || sa[i.res] || ra[i.res] || { nm: "" }).nm;
   switch (i.t) {
-    case "bloc": return [`${i.gym} · ${aa(i.g)}`, e];
+    case "bloc": return [`${i.gym} · ${aa(i.g)}`, i.tb ? "🟦 " + tbText(i.tb) + " · " + e : e];
     case "corde": { let L = lsOf(i), n = lsTot(L); return [`${i.gym} · ${Tn(lsMax(L))}`, `${n} voie${n > 1 ? "s" : ""}${L.length > 1 ? " (" + lsText(L) + ")" : ""} · ${e}`]; }
     case "prepa": {
       let S = sessE(i);
@@ -5596,7 +5629,7 @@ function prepaStep() {
 }
 function step2(e) {
   let o = "";
-  if (e === "bloc") o = kf("bloc") + '<div class="lbl">Plus haut bloc réussi</div>' + Bf("bloc") + Ff("bloc");
+  if (e === "bloc") o = kf("bloc") + tbBox() + '<div class="lbl">' + (se.d.tb ? "Grade du problème" : "Plus haut bloc réussi") + "</div>" + Bf("bloc") + Ff("bloc");
   else if (e === "corde") o = kf("corde") + '<div class="lbl">Tes voies : un tap par voie grimpée</div>' + lsBox() + Bf("corde") + Ff("corde", "lsadd");
   else if (e === "prepa") o = prepaStep();
   else if (e === "voie") o = Dy() + tsBox();
@@ -5638,7 +5671,7 @@ function rs() {
 }
 function fp() {
   let i = se.d, e = { id: "e" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), d: i.date || ssDate(), t: se.t, res: i.res };
-  if (se.t === "bloc") e.gym = (i.gym || "").trim(), e.g = i.g;
+  if (se.t === "bloc") { e.gym = (i.gym || "").trim(), e.g = i.g; const tb = tbNorm(i.tb); tb && (e.tb = tb); }
   else if (se.t === "corde") { let L = lsSort(i.ls || []); e.gym = (i.gym || "").trim(), e.ls = L.map((x) => ({ g: x.g, n: x.n })), e.g = lsMax(L), e.n = lsTot(L); }
   else if (se.t === "prepa") { if (i.tp && sessOf(i.tp)) { e.k = "seance", e.tp = i.tp, e.ex = { ...(i.ex || {}) }; if (i.tp === "mine") e.cx = cxNorm(ie.cx).filter((c) => e.ex[c.id] > 0); } else e.k = i.k, e.min = i.min; }
   else if (se.t === "voie") { e.rs = i.rs; if (i.ts && i.ts.length) e.ts = [...i.ts]; if ((i.cm || "").trim()) e.cm = i.cm.trim().slice(0, 140); }
@@ -5659,18 +5692,18 @@ function Ny() {
   return i === "voie" && !e.rs ? "Choisis une voie (ou ajoute la tienne)" : i === "skill" && !e.sk ? "Choisis le skill" : "";
 }
 function Xy(i) {
-  let e = [["perso", "date", "type", "detail", "lieu", "cotation", "cotation_stockee", "resultat", "nb_voies_ou_longueurs", "minutes", "repartition_voies", "skills", "commentaire", "series_faites"]];
+  let e = [["perso", "date", "type", "detail", "lieu", "cotation", "cotation_stockee", "resultat", "nb_voies_ou_longueurs", "minutes", "repartition_voies", "skills", "commentaire", "series_faites", "probleme_tension"]];
   return ls().forEach((t, n) => {
     let s = i ? "Perso " + (n + 1) : t.name;
     [...t.log].sort((r, a) => r.d.localeCompare(a.d) || r.id.localeCompare(a.id)).forEach((r) => {
-      let a = (ia[r.res] || sa[r.res] || ra[r.res] || { nm: "" }).nm, o = "", c = "", l = "", u = "", d = "", h = "", rp2 = "", sk2 = "", cm2 = "", sf = "";
-      if (r.t === "bloc") o = r.gym, l = aa(r.g), u = r.g;
+      let a = (ia[r.res] || sa[r.res] || ra[r.res] || { nm: "" }).nm, o = "", c = "", l = "", u = "", d = "", h = "", rp2 = "", sk2 = "", cm2 = "", sf = "", tb2 = "";
+      if (r.t === "bloc") o = r.gym, l = aa(r.g), u = r.g, tb2 = tbText(r.tb);
       else if (r.t === "corde") { let L = lsOf(r); o = r.gym, l = Tn(lsMax(L)), u = lsMax(L), d = lsTot(L), rp2 = lsSort(L).map((x) => x.g + "x" + x.n).join(" | "); }
       else if (r.t === "prepa") { let S = sessE(r); if (S) { o = S.nm; let q = sessCount(S, r.ex); sf = q[0] + "/" + q[1]; } else o = (ri.find((f) => f[0] === r.k) || ri[5])[1], h = r.min; }
       else if (r.t === "voie") o = r.rs.n, c = r.rs.m, l = Tn(r.rs.c || ""), u = r.rs.c || "", d = r.rs.L, sk2 = tsText(r.ts), cm2 = r.cm || "";
       else if (r.t === "skill") o = (os.find((f) => f[0] === r.sk) || os[0])[1], cm2 = [r.pl ? "lieu : " + r.pl : "", r.cm || ""].filter(Boolean).join(" · ");
       else o = r.k === "blessure" ? "Blessure / maladie" : r.k === "blackbean" ? "Black Bean (Coinceur, YouTube)" : "Repos planifié";
-      e.push([s, r.d, Pi[r.t].nm, o, c, l, u, a, d, h, rp2, sk2, cm2, sf]);
+      e.push([s, r.d, Pi[r.t].nm, o, c, l, u, a, d, h, rp2, sk2, cm2, sf, tb2]);
     });
   }), "﻿" + e.map((t) => t.map(Wy).join(";")).join(`\r
 `) + `\r
@@ -5998,7 +6031,7 @@ async function cqPublish() {
   cq.busy = true, cq.out = null, cq.err = "", renderCord();
   try {
     await cqProg(10, "Lecture de ton perso…");
-    const P = { a: "BWQ", v: 1, p: cd.me.p, t: new Date().toISOString(), n: ch.name, av: { model: ch.avatar.model, out: ch.avatar.out, skin: ch.avatar.skin }, tf: Ey.includes(ch.tf) ? ch.tf : undefined, log: ch.log }, raw = cqTxt.encode(JSON.stringify(P));
+    const P = { a: "BWQ", v: 1, p: cd.me.p, t: new Date().toISOString(), n: ch.name, av: { model: ch.avatar.model, out: ch.avatar.out, skin: ch.avatar.skin }, tf: Ey.includes(ch.tf) ? ch.tf : undefined, log: tbStrip(ch.log) }, raw = cqTxt.encode(JSON.stringify(P));
     await cqProg(30, "Compression…");
     let flag = 0, body = raw;
     try { if (typeof CompressionStream != "undefined") { const z = await cqZip(raw); z.length < raw.length && (flag = 1, body = z); } } catch {}
@@ -6384,7 +6417,7 @@ function eM() {
     Et.name = i.target.value;
   }), document.body.addEventListener("input", (i) => {
     let e = i.target.id;
-    se && (e === "jq" ? (se.q = i.target.value, ae("#jres").innerHTML = Cu()) : e === "jgym" ? se.d.gym = i.target.value : e === "jd" ? (se.d.date = i.target.value || hn()) : e === "jcm" ? (se.d.cm = i.target.value) : e === "jpl" && (se.d.pl = i.target.value));
+    se && (e === "jq" ? (se.q = i.target.value, ae("#jres").innerHTML = Cu()) : e === "jgym" ? se.d.gym = i.target.value : e === "jtbn" ? (se.d.tb && (se.d.tb.n = i.target.value)) : e === "jd" ? (se.d.date = i.target.value || hn()) : e === "jcm" ? (se.d.cm = i.target.value) : e === "jpl" && (se.d.pl = i.target.value));
   }), document.body.addEventListener("change", (i) => {
     i.target.id === "jm" && se && (se.mf = i.target.value, ae("#jres").innerHTML = Cu());
   }), ae("#bkf").addEventListener("change", (i) => {
@@ -7465,7 +7498,7 @@ async function boxPrepare() {
   cq.busy = true, cq.err = "", BXS.out = null, renderCord();
   try {
     await cqProg(12, "Lecture de ton perso…"); boxMe(cd);
-    const slug = boxSlug(ch.name), P = { a: "BWQ", v: 1, p: cd.me.p, t: new Date().toISOString(), n: ch.name, av: { model: ch.avatar.model, out: ch.avatar.out, skin: ch.avatar.skin }, tf: Ey.includes(ch.tf) ? ch.tf : undefined, log: ch.log }, json = JSON.stringify(P);
+    const slug = boxSlug(ch.name), P = { a: "BWQ", v: 1, p: cd.me.p, t: new Date().toISOString(), n: ch.name, av: { model: ch.avatar.model, out: ch.avatar.out, skin: ch.avatar.skin }, tf: Ey.includes(ch.tf) ? ch.tf : undefined, log: tbStrip(ch.log) }, json = JSON.stringify(P);
     await cqProg(35, "Contrôle : la carte se relit-elle ?");
     const chk = boxParse(JSON.parse(json), slug, true); if (chk.log.length > ch.log.length) throw new Error("contrôle de la carte échoué");
     await cqProg(55, "Ta carte est-elle déjà en ligne ?");
