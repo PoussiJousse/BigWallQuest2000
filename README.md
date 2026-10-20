@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.15)
-Généré le 2026-10-20 · version courante : **L7 v0.15** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.15.1)
+Généré le 2026-10-20 · version courante : **L7 v0.15.1** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,12 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.15.1 · 2026-10-20 — Mise à jour fiable
+- 🔄 **Corrige « l'app reste sur l'ancienne version »** : à l'installation d'une version, les fichiers sont téléchargés à neuf (avant, l'ancien `index.html` pouvait être recopié dans le nouveau cache).
+- 🌐 La page du jeu vient du réseau quand il y en a (vérification légère), la copie hors-ligne sert en secours.
+- 🔎 Le jeu demande lui-même une nouvelle version à chaque ouverture et retour dans l'app ; elle s'affiche à la réouverture suivante.
+- 🏷️ Le numéro de version interne (diagnostic, sauvegardes) était resté à v0.13 : corrigé.
 
 ### v0.15 · 2026-10-20 — Cordée : les cartes se trouvent toutes seules
 - 📋 **Liste publique `cordee/index.json`** : le jeu la lit sur son propre site et affiche les cartes de toute la bande. Plus besoin de créer un perso au prénom de chaque ami.
@@ -107,7 +113,7 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 - Réseau : uniquement le propre site du jeu (version hébergée GitHub Pages).
 - Les anciennes sauvegardes se chargent telles quelles.
 
-## Limites connues (v0.15)
+## Limites connues (v0.15.1)
 - Rien n'a été essayé sur un vrai iPhone ni Android : les tests tournent sur un navigateur de test.
 - La texture de roche prend ~1 s à générer sur un ordinateur, davantage sur un vieux téléphone.
 - Sur certaines combinaisons de personnages, la main de l'ami peut chevaucher un peu le joueur dans la scène de réconfort.
