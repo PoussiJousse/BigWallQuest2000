@@ -5262,7 +5262,19 @@ function rtLoc(v) {
   while (s.length && /^(International|North America)$/.test(s[s.length - 1])) s.pop();
   s.length > 2 && /^(Canada|United States|USA)$/.test(s[s.length - 1]) && s.pop();
   s.length > 2 && s.pop(), s.length >= 2 && s.pop();
-  const m = s.pop() || "Importé"; return { m, s: s.reverse().join(" › ") };
+  const m = s.pop() || "Importé", sec = s.reverse(); return { m, s: sec.join(" › "), seg: [m, ...sec] };
+}
+/* v0.17 · les massifs de la banque (extraits des topos) font foi : une voie MP située sur un massif connu est rangée sous le nom du topo.
+   Du segment le plus précis au plus large : nom identique, ou tous les mots-clés du massif du topo présents (« Orford » + « Corbeaux ») */
+var RTM = null;
+function rtRef(seg) {
+  if (!RTM) RTM = [...new Set(op.map((r) => r.m))].map((m) => { const c = rtTok(m.split("(")[0]); return { m, n: rtNorm(m), core: c.size ? c : rtTok(m) }; });
+  for (let i = seg.length - 1; i >= 0; i--) {
+    const n = rtNorm(seg[i]), T = rtTok(seg[i]), ex = RTM.find((b) => b.n === n); if (ex) return { m: ex.m, i };
+    let best = null; for (const b of RTM) b.core.size && [...b.core].every((w) => T.has(w)) && (!best || b.core.size > best.k) && (best = { m: b.m, i, k: b.core.size });
+    if (best) return best;
+  }
+  return null;
 }
 function rtParse(txt, src) {
   const e = By(String(txt).replace(/^\uFEFF/, ""));
@@ -5274,7 +5286,8 @@ function rtParse(txt, src) {
   for (const g of e.slice(1, 3001)) {
     if (u >= 0 && g[u] && g[u].trim() !== "voie") { f++; continue; }
     const nm = (g[s] || "").replace(/\s+/g, " ").trim(); if (!nm) { f++; continue; }
-    const raw = r >= 0 ? String(g[r] || "").trim() : "", cg = mp ? rtGrade(raw) : lp(raw), lo = mp ? rtLoc(g[a]) : { m: (a >= 0 && g[a] || "").trim() || "Importé", s: o >= 0 ? (g[o] || "").trim() : "" };
+    const raw = r >= 0 ? String(g[r] || "").trim() : "", cg = mp ? rtGrade(raw) : lp(raw), lo = mp ? rtLoc(g[a]) : { m: (a >= 0 && g[a] || "").trim() || "Importé", s: o >= 0 ? (g[o] || "").trim() : "" }, rf = mp && rtRef(lo.seg);
+    rf && (lo.m = rf.m, lo.s = lo.seg.slice(rf.i + 1).join(" › "));
     const L = Math.max(1, Math.min(40, parseInt(c >= 0 ? g[c] : "") || 1)), id = w >= 0 && /\/route\/(\d{4,12})(\/|$)/.exec(g[w] || ""), eng = mp ? raw.split(/\s+/).slice(1).join(" ") : "";
     const x = { id: id ? "MP" + id[1] : "C" + Date.now().toString(36) + out.length, m: lo.m.slice(0, 60), s: lo.s.slice(0, 60), n: nm.slice(0, 60), c: cg.slice(0, 10), x: dr(cg) || 0, t: [l >= 0 ? (g[l] || "").trim() : "", eng].filter(Boolean).join(" · ").slice(0, 30), L, mp: L > 1, hq: false, custom: 1, ...(src ? { src } : {}) };
     if (seen.has(rtKey(x))) { f++; continue; }
