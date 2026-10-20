@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.14.1)
-Généré le 2026-10-20 · version courante : **L7 v0.14.1** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.15)
+Généré le 2026-10-20 · version courante : **L7 v0.15** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,13 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.15 · 2026-10-20 — Cordée : les cartes se trouvent toutes seules
+- 📋 **Liste publique `cordee/index.json`** : le jeu la lit sur son propre site et affiche les cartes de toute la bande. Plus besoin de créer un perso au prénom de chaque ami.
+- ② bis **« Ajoute ton prénom à la liste »** : proposé à la publication, une seule fois, seulement si ton prénom n'y est pas encore.
+- 👥 Jusqu'à **8 amis** (avant : 5, à cause de la limite de persos par téléphone). Au-delà, le jeu dit qui n'est pas affiché.
+- 🩹 Liste abîmée ou deux ajouts croisés : le prénom manquant est redemandé à la publication suivante.
+- 📄 Mode d'emploi : `docs/BigWallQuest_CordeeListe_L7_v0.15_2026-10-20.md`.
 
 ### v0.14.1 · 2026-10-20 — Nouvelle salle
 - 🪨 **D-Vert escalade** (Sherbrooke, bloc) ajoutée à la liste des salles de bloc.
@@ -100,7 +107,7 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 - Réseau : uniquement le propre site du jeu (version hébergée GitHub Pages).
 - Les anciennes sauvegardes se chargent telles quelles.
 
-## Limites connues (v0.14.1)
+## Limites connues (v0.15)
 - Rien n'a été essayé sur un vrai iPhone ni Android : les tests tournent sur un navigateur de test.
 - La texture de roche prend ~1 s à générer sur un ordinateur, davantage sur un vieux téléphone.
 - Sur certaines combinaisons de personnages, la main de l'ami peut chevaucher un peu le joueur dans la scène de réconfort.

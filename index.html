@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="BigWallQuest"><meta name="theme-color" content="#120c24">
-<title>BigWallQuest L7 v0.14.1</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" href="icon-192.png">
+<title>BigWallQuest L7 v0.15</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" href="icon-192.png">
 
 <style>
 :root{--a:#ff7a2f;--b:#7c5cff;--bg:#0d0a1a;--fg:#f4f1ff;--mut:#a9a3c4;--pn:rgba(18,12,36,.88);--bd:rgba(255,255,255,.18)}
@@ -154,7 +154,7 @@ button.card.sx{display:block;font:inherit;background:rgba(255,255,255,.04);margi
 <div id="diag" hidden><b>⚠ Un problème est survenu</b><div id="dmsg"></div><pre id="dtxt"></pre><div class="small" style="color:#ffd0d0">Ce texte ne contient que : version, navigateur, taille d'écran, étapes de chargement. Aucune donnée de séance. Sélectionne-le et copie-le pour le partager.</div><div class="row"><button class="btn alt sm" data-a="dclose">Fermer</button></div></div>
 
 <section id="boot" class="scr on">
-  <div class="logo">BIGWALL<br>QUEST<small>L7 · v0.14.1 · 2026-10-20</small></div>
+  <div class="logo">BIGWALL<br>QUEST<small>L7 · v0.15 · 2026-10-20</small></div>
   <div class="panel">
     <div class="pbl"><span id="bl">Chargement…</span><b id="bp">0 %</b></div>
     <div class="pb"><i id="bb"></i></div>
@@ -176,7 +176,7 @@ button.card.sx{display:block;font:inherit;background:rgba(255,255,255,.04);margi
     <button class="btn" data-a="play">▶ Jouer</button>
     <button class="btn alt" data-a="chars">👤 Personnages</button>
     <div class="row" style="margin-top:8px"><button class="btn alt sm" data-a="cine">🎬 Cinématique</button><button class="btn alt sm" data-a="guide">❓ Guide</button><button class="btn alt sm" data-a="opts">⚙ Options</button></div>
-    <div class="foot">L7 · v0.14.1 · 2026-10-20 · 100 % local</div>
+    <div class="foot">L7 · v0.15 · 2026-10-20 · 100 % local</div>
   </div>
 </section>
 
@@ -6082,6 +6082,7 @@ function cqAct(a, v) {
     case "cqbox": boxCreate(); return;
     case "cqboxpub": boxPrepare(); return;
     case "cqboxrf": boxRefresh(false); return;
+    case "cqboxix": { const x = BXS.out && BXS.out.ix; x && Hf(x.json).then((ok) => { x.copied = !!ok, nt(ok ? "Liste copiée : colle-la dans GitHub" : "Copie impossible : copie le texte sous le bouton"), renderCord(); }); return; }
     case "cqjoin": cqJoinDo(); return;
     case "cqpub": cqPublish(); return;
     case "cqshare": { const o = cq.out; o && jy(o).then((c) => c === "ok" ? nt("Envoyé ✔") : c === "nosupport" ? nt("Partage indisponible ici : utilise Télécharger ou Copier") : c === "fail" && nt("Partage impossible : essaie Télécharger ou Copier")); return; }
@@ -7482,6 +7483,35 @@ function boxParse(P, slug, self) {
   const x = c.chars[0]; if (!x) throw new Error("carte vide");
   return { pid: P.p, name: x.name, avatar: x.avatar, tf: x.tf, log: x.log, t: P.t, bad: c.bad };
 }
+/* v0.15 · liste publique des cartes : cordee/index.json = { a: "BWQ-INDEX", v: 1, c: [prénoms simplifiés] }
+   - le jeu la lit sur SON PROPRE site : plus besoin de créer un perso par ami pour voir sa carte
+   - chacun s'y ajoute une seule fois en publiant ; si deux ajouts se croisent, le prénom manquant est redemandé à la publication suivante */
+const BXI = "cordee/index.json", BXMAX = 8;
+function boxIdxNorm(P) {
+  if (!P || typeof P != "object" || P.a !== "BWQ-INDEX" || P.v !== 1 || !Array.isArray(P.c)) return null;
+  return [...new Set(P.c.filter((s) => typeof s == "string" && /^[a-z0-9]{1,20}$/.test(s)))].slice(0, 50);
+}
+/* lit la liste : { exists, list } ; list = null si le fichier est illisible ; lève une erreur seulement sans connexion */
+async function boxIdxGet(bi) {
+  const r = await fetch(bi.base + BXI, { cache: "no-store" });
+  if (r.status === 404) return { exists: false, list: [] };
+  if (!r.ok) return { exists: true, list: null };
+  let P = null; try { const t = await r.text(); P = t.length > 2e4 ? null : JSON.parse(t); } catch { }
+  return { exists: true, list: boxIdxNorm(P) };
+}
+function boxIdxOut(bi, ix, slug) {
+  if (!ix || (ix.list && ix.list.includes(slug))) return null;
+  const json = JSON.stringify({ a: "BWQ-INDEX", v: 1, c: [...(ix.list || []), slug].sort() });
+  return { mode: ix.exists ? "edit" : "pre", url: ix.exists ? bi.gh + "/edit/main/" + BXI : bi.gh + "/new/main/cordee?filename=index.json&value=" + encodeURIComponent(json), json, bad: ix.exists && !ix.list, copied: false };
+}
+function boxIdxView(x) {
+  const how = x.mode === "pre" ? "Dans GitHub : touche <b>Commit changes…</b> puis <b>Commit changes</b> (bouton vert)." : "Dans GitHub : touche dans le texte, <b>tout sélectionner</b>, <b>Coller</b>, puis <b>Commit changes…</b> et <b>Commit changes</b>.";
+  return '<div class="card selc"><b>② bis · Ajoute ton prénom à la liste (une seule fois)</b><div class="mut">Grâce à la liste, tes amis voient ta carte sans rien créer. Fais-le après avoir publié ta carte.</div>'
+    + (x.bad ? '<div class="mut" style="margin-top:6px;color:#e8c547">⚠ La liste en ligne était illisible : elle repart de ton prénom. Les autres s\'y remettront en publiant.</div>' : "")
+    + (x.mode === "edit" ? `<button class="btn alt" data-j="cqboxix" style="margin-top:8px">${x.copied ? "✔ Liste copiée" : "📋 1. Copier la nouvelle liste"}</button>` : "")
+    + `<a class="btn" href="${et(x.url)}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:8px;text-decoration:none">🌐 ${x.mode === "edit" ? "2. " : ""}Ouvrir la liste dans GitHub</a><div class="mut" style="margin-top:6px">${how}</div>`
+    + (x.mode === "edit" ? `<textarea readonly rows="2" style="margin-top:6px" onfocus="this.select()">${et(x.json)}</textarea>` : "") + "</div>";
+}
 function boxStart() {
   const bi = boxInfo(), r = cqReal(); if (!r.length) return "";
   if (!bi) return '<div class="card mut" style="margin-top:10px">📮 <b>Boîte aux lettres</b> (sans code) : disponible quand le jeu est ouvert depuis son adresse GitHub Pages.</div>';
@@ -7503,11 +7533,13 @@ async function boxPrepare() {
     const chk = boxParse(JSON.parse(json), slug, true); if (chk.log.length > ch.log.length) throw new Error("contrôle de la carte échoué");
     await cqProg(55, "Ta carte est-elle déjà en ligne ?");
     let exists = false; try { exists = (await fetch(bi.base + "cordee/" + slug + ".json", { cache: "no-store" })).ok; } catch { }
+    await cqProg(66, "Ton prénom est-il dans la liste ?");
+    let ix = null; try { ix = await boxIdxGet(bi); } catch { }
     await cqProg(78, "Copie dans le presse-papiers…");
     const copied = await Hf(json), enc = encodeURIComponent(json), pre = !exists && enc.length <= 6000;
     const urlNew = bi.gh + "/new/main/cordee?filename=" + slug + ".json" + (pre ? "&value=" + enc : ""), urlEdit = bi.gh + "/edit/main/cordee/" + slug + ".json";
     cd.lp = hn(), Tt();
-    BXS.out = { slug, mode: exists ? "edit" : pre ? "pre" : "paste", url: exists ? urlEdit : urlNew, alt: exists ? "" : urlEdit, copied, json: copied || json.length > 2e5 ? "" : json, n: chk.log.length, kb: Math.max(1, Math.round(json.length / 1024)) };
+    BXS.out = { slug, mode: exists ? "edit" : pre ? "pre" : "paste", url: exists ? urlEdit : urlNew, alt: exists ? "" : urlEdit, copied, json: copied || json.length > 2e5 ? "" : json, ix: boxIdxOut(bi, ix, slug), n: chk.log.length, kb: Math.max(1, Math.round(json.length / 1024)) };
     await cqProg(100, "Carte prête ✔"), ze("ok");
   } catch (e) { await cqProg(100, "Erreur"), cq.err = "Préparation impossible : " + (e && e.message || e), ze("err"); }
   finally { cq.busy = false, renderCord(); setTimeout(() => { const b = ae("#cqbody"); b && BXS.out && (b.scrollTop = Math.min(b.scrollHeight, 380)); }, 40); }
@@ -7518,7 +7550,10 @@ async function boxRefresh(auto) {
   try {
     boxMe(cd); const me = cqMine(); if (!me) throw new Error("crée d'abord un perso réel");
     const mine = boxSlug(me.name), names = {}; cqReal().forEach((c) => { const s = boxSlug(c.name); s !== mine && !names[s] && (names[s] = c.name); });
-    const slugs = Object.keys(names), rs = { up: [], same: [], none: [], bad: [] };
+    await cqProg(4, "Lecture de la liste de la cordée…");
+    let ix = null; try { ix = await boxIdxGet(bi); } catch { }
+    (ix && ix.list || []).forEach((s) => s !== mine && !names[s] && (names[s] = s));
+    const slugs = Object.keys(names), rs = { up: [], same: [], none: [], bad: [], full: [] };
     for (let i = 0; i < slugs.length; i++) {
       const s = slugs[i], nm = names[s];
       await cqProg(Math.round(8 + 87 * i / Math.max(1, slugs.length)), "Lecture de la carte de " + nm + "…");
@@ -7529,8 +7564,8 @@ async function boxRefresh(auto) {
       if (txt.length > 4e6) { rs.bad.push(nm); continue; }
       let k; try { k = boxParse(JSON.parse(txt), s, false); } catch { rs.bad.push(nm); continue; }
       const ex = cd.m[k.pid];
-      if (!ex && Object.keys(cd.m).length >= 8) { rs.bad.push(nm); continue; }
-      if (!ex || k.t > ex.t) { cd.m[k.pid] = { n: k.name, av: { model: k.avatar && k.avatar.model || "soldier" }, log: k.log, t: k.t, rx: hn(), ...(k.tf ? { tf: k.tf } : {}) }, rs.up.push(nm); } else rs.same.push(nm);
+      if (!ex && Object.keys(cd.m).length >= BXMAX) { rs.full.push(k.name || nm); continue; }
+      if (!ex || k.t > ex.t) { cd.m[k.pid] = { n: k.name, av: { model: k.avatar && k.avatar.model || "soldier" }, log: k.log, t: k.t, rx: hn(), ...(k.tf ? { tf: k.tf } : {}) }, rs.up.push(k.name || nm); } else rs.same.push(k.name || nm);
     }
     Tt(); BXS.t = Date.now(), BXS.at = new Date().toTimeString().slice(0, 5), BXS.rs = rs;
     await cqProg(100, "Cordée à jour ✔"); ze(rs.up.length ? "ok" : "tap");
@@ -7551,10 +7586,12 @@ function boxViewSync(bd, R) {
     h += me ? '<button class="btn" data-j="cqboxpub" style="margin-top:8px">📤 Préparer ma carte</button>' : '<div class="card mut" style="margin-top:8px">Crée d\'abord un perso réel.</div>';
     if (o) {
       const how = o.mode === "pre" ? "Dans GitHub : touche <b>Commit changes…</b> puis <b>Commit changes</b> (bouton vert)." : o.mode === "paste" ? "Dans GitHub : appui long dans la zone de texte → <b>Coller</b>, puis <b>Commit changes…</b> et <b>Commit changes</b>." : "Dans GitHub : touche dans le texte, <b>tout sélectionner</b>, <b>Coller</b> (ta carte est déjà copiée), puis <b>Commit changes…</b> et <b>Commit changes</b>.";
-      h += `<div class="card selc"><b>✔ Carte prête : ${et(o.slug)}.json</b><div class="mut">${o.n} séance${o.n > 1 ? "s" : ""} · ${o.kb} Ko · ${o.copied ? "copiée dans le presse-papiers" : "copie auto impossible : copie le texte ci-dessous"}</div><a class="btn" href="${et(o.url)}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:8px;text-decoration:none">🌐 Ouvrir GitHub (dernière étape)</a><div class="mut" style="margin-top:6px">${how}<br>Page en ligne à jour environ 1 minute après.</div>${o.alt ? `<a class="btn alt sm" href="${et(o.alt)}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:6px;text-decoration:none">Déjà publiée avant ? Modifier mon fichier</a>` : ""}${o.json ? `<textarea readonly rows="4" style="margin-top:6px" onfocus="this.select()">${et(o.json)}</textarea>` : ""}</div>`;
+      h += `<div class="card selc"><b>✔ Carte prête : ${et(o.slug)}.json</b><div class="mut">${o.n} séance${o.n > 1 ? "s" : ""} · ${o.kb} Ko · ${o.copied ? "copiée dans le presse-papiers" : "copie auto impossible : copie le texte ci-dessous"}</div><a class="btn" href="${et(o.url)}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:8px;text-decoration:none">🌐 Ouvrir GitHub${o.ix ? " (puis ② bis ci-dessous)" : " (dernière étape)"}</a><div class="mut" style="margin-top:6px">${how}<br>Page en ligne à jour environ 1 minute après.</div>${o.alt ? `<a class="btn alt sm" href="${et(o.alt)}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:6px;text-decoration:none">Déjà publiée avant ? Modifier mon fichier</a>` : ""}${o.json ? `<textarea readonly rows="4" style="margin-top:6px" onfocus="this.select()">${et(o.json)}</textarea>` : ""}</div>`;
     }
+    o && o.ix && (h += boxIdxView(o.ix));
     h += '<div class="sec">② Lire la boîte</div><button class="btn" data-j="cqboxrf">🔄 Rafraîchir la cordée</button>';
     if (BXS.at) h += `<div class="mut" style="margin-top:4px">Dernière lecture : ${et(BXS.at)}</div>`;
+    if (rs && rs.full && rs.full.length) h += `<div class="card mut" style="margin-top:8px">🈵 Cordée pleine (${BXMAX} amis max) : ${et(rs.full.join(", "))} pas affiché${rs.full.length > 1 ? "s" : ""}.</div>`;
     if (cq.err) h += `<div class="card" style="margin-top:8px;border-color:#e85d5d"><b>✖ Lecture impossible</b><div class="mut" style="margin-top:4px">${et(cq.err)}</div></div>`;
     if (rs) h += `<div class="card selc"><b>Résultat</b>${rs.up.length ? `<div class="mut">🔄 mis à jour : ${et(rs.up.join(", "))}</div>` : ""}${rs.same.length ? `<div class="mut">✔ déjà à jour : ${et(rs.same.join(", "))}</div>` : ""}${rs.none.length ? `<div class="mut">⏳ pas encore publiée : ${et(rs.none.join(", "))}</div>` : ""}${rs.bad.length ? `<div class="mut">✖ carte illisible : ${et(rs.bad.join(", "))}</div>` : ""}</div>`;
   }
