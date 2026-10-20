@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.17)
-Généré le 2026-10-20 · version courante : **L7 v0.17** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.18)
+Généré le 2026-10-20 · version courante : **L7 v0.18** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,12 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.18 · 2026-10-20 — Bloc : board et volume
+- 🧱 **Sur quoi ?** 🏢 Mur de la salle · 🟦 Tension · 🟩 Kilter · 🌙 Moon, avec les angles de chaque board. Nom du problème phare, angle et essais gardés, tout optionnel.
+- 🔢 **Volume : un tap par bloc**, en mode ✓ Réussi ou ✗ Tenté (ex. 4 × V2 ✓, 2 × V3 ✗). Le plus dur réussi devient le grade de l'entrée ; si rien n'est réussi, « Échec » est présélectionné.
+- 💪 **Points** : le meilleur bloc compte comme avant, chaque bloc en plus ajoute de la Force, et un bloc raté vaut **33 %** d'un réussi. Exemple testé : 4 × V2 ✓ + 2 × V3 ✗ = +63 XP, contre +36 XP pour un seul V2.
+- 🔒 Le volume part sur la carte de cordée ; le board et le nom du problème restent privés. Export CSV : colonne `repartition_voies` (ex. `V2x4✓ | V3x2✗`).
 
 ### v0.17 · 2026-10-20 — Voies de Mountain Project
 - 🧗 **Import de l'export « Route Finder » de Mountain Project tel quel** (⚙ Options → 📥 Importer des voies) : massif et secteur tirés du chemin du lieu, cotations nettoyées (`5.10b/c` → 5.10b ; `5.9 PG13` → 5.9, l'engagement est noté dans le type), longueurs, n° de voie pour éviter les doublons.
@@ -134,7 +140,7 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 - Réseau : le propre site du jeu (version hébergée GitHub Pages) ; depuis v0.16, **api.github.com** aussi, seulement si la cordée automatique est activée.
 - Les anciennes sauvegardes se chargent telles quelles.
 
-## Limites connues (v0.17)
+## Limites connues (v0.18)
 - Rien n'a été essayé sur un vrai iPhone ni Android : les tests tournent sur un navigateur de test.
 - La texture de roche prend ~1 s à générer sur un ordinateur, davantage sur un vieux téléphone.
 - Sur certaines combinaisons de personnages, la main de l'ami peut chevaucher un peu le joueur dans la scène de réconfort.
