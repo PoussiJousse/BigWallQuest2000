@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.15.1)
-Généré le 2026-10-20 · version courante : **L7 v0.15.1** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.16)
+Généré le 2026-10-20 · version courante : **L7 v0.16** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,15 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.16 · 2026-10-20 — Cordée automatique
+- ⚡ **À chaque ouverture du jeu** : ta carte part si elle a changé, celles des amis arrivent. Aussi au retour dans l'app et quelques secondes après chaque séance enregistrée.
+- 🔑 Les amis n'ont **pas besoin de GitHub** : l'hôte leur envoie un message avec un **code** (et un lien). Ils le collent une fois, touchent leur prénom, et c'est tout.
+- 🗂 Les cartes vont dans un **dépôt privé séparé** (`Cordee`). La clé n'ouvre que ce dépôt : elle ne peut pas toucher au jeu.
+- 🔒 La clé n'est **jamais** dans le code du jeu ni dans la sauvegarde exportée. Elle reste seulement dans la mémoire du téléphone.
+- 🌐 **Nouveau site contacté : `api.github.com`**, seulement pour la cordée automatique (autorisé dans la CSP, rien d'autre).
+- 🧹 Une carte supprimée du dépôt disparaît aussi des téléphones.
+- 📄 Guides : `docs/BigWallQuest_CordeeAuto_Hote_L7_v0.16_2026-10-20.md` (hôte) et `docs/BigWallQuest_CordeeAuto_Amis_L7_v0.16_2026-10-20.md` (amis).
 
 ### v0.15.1 · 2026-10-20 — Mise à jour fiable
 - 🔄 **Corrige « l'app reste sur l'ancienne version »** : à l'installation d'une version, les fichiers sont téléchargés à neuf (avant, l'ancien `index.html` pouvait être recopié dans le nouveau cache).
@@ -110,10 +119,10 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 
 ## Ce qui n'a pas changé depuis le début
 - Un seul fichier HTML ; aucun traceur ; aucun compte ; aucune donnée personnelle dans le code.
-- Réseau : uniquement le propre site du jeu (version hébergée GitHub Pages).
+- Réseau : le propre site du jeu (version hébergée GitHub Pages) ; depuis v0.16, **api.github.com** aussi, seulement si la cordée automatique est activée.
 - Les anciennes sauvegardes se chargent telles quelles.
 
-## Limites connues (v0.15.1)
+## Limites connues (v0.16)
 - Rien n'a été essayé sur un vrai iPhone ni Android : les tests tournent sur un navigateur de test.
 - La texture de roche prend ~1 s à générer sur un ordinateur, davantage sur un vieux téléphone.
 - Sur certaines combinaisons de personnages, la main de l'ami peut chevaucher un peu le joueur dans la scène de réconfort.
