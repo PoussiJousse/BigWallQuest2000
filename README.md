@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.16)
-Généré le 2026-10-20 · version courante : **L7 v0.16** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.16.1)
+Généré le 2026-10-20 · version courante : **L7 v0.16.1** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,10 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.16.1 · 2026-10-20 — Les amis dans « Personnages »
+- 👥 **« Choisis ton grimpeur » montre aussi les persos de la cordée**, après les tiens (point carré) : leur look et leur radar, à regarder seulement. Pas de Choisir, Look ni Supprimer sur un perso d'ami.
+- 🎨 La cordée garde maintenant les **couleurs** du look de chaque ami (avant : le modèle seulement). Les cartes déjà reçues se rechargent une fois toutes seules.
 
 ### v0.16 · 2026-10-20 — Cordée automatique
 - ⚡ **À chaque ouverture du jeu** : ta carte part si elle a changé, celles des amis arrivent. Aussi au retour dans l'app et quelques secondes après chaque séance enregistrée.
@@ -122,7 +126,7 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 - Réseau : le propre site du jeu (version hébergée GitHub Pages) ; depuis v0.16, **api.github.com** aussi, seulement si la cordée automatique est activée.
 - Les anciennes sauvegardes se chargent telles quelles.
 
-## Limites connues (v0.16)
+## Limites connues (v0.16.1)
 - Rien n'a été essayé sur un vrai iPhone ni Android : les tests tournent sur un navigateur de test.
 - La texture de roche prend ~1 s à générer sur un ordinateur, davantage sur un vieux téléphone.
 - Sur certaines combinaisons de personnages, la main de l'ami peut chevaucher un peu le joueur dans la scène de réconfort.
