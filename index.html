@@ -176,7 +176,7 @@ button.card.sx{display:block;font:inherit;background:rgba(255,255,255,.04);margi
     <button class="btn" data-a="play">▶ Jouer</button>
     <button class="btn alt" data-a="chars">👤 Personnages</button>
     <div class="row" style="margin-top:8px"><button class="btn alt sm" data-a="cine">🎬 Cinématique</button><button class="btn alt sm" data-a="guide">❓ Guide</button><button class="btn alt sm" data-a="opts">⚙ Options</button></div>
-    <div class="foot">L7 · v0.18.1 · 2026-10-20 · 100 % local</div>
+    <div class="foot" id="mver">L7 · v0.19.1 · 2026-11-02 · 100 % local</div>
   </div>
 </section>
 
@@ -4822,7 +4822,7 @@ function Ay() {
 }
 function Vu() {
   let i = (ie.routes || []).length;
-  ae("#nroutes").textContent = i ? `Voies ajoutées par toi : ${i}` : "Aucune voie ajoutée (banque de base : " + op.filter((e) => !e.hq).length + " voies QC)", ae("#ostore").textContent = ec ? "Stockage local : OK" : "Stockage local : bloqué (mode privé ?)", ae("#over").textContent = `BigWallQuest · ${ar} · ${rr} · ${Xf}`, rp(), Au();
+  ae("#nroutes").textContent = i ? `Voies ajoutées par toi : ${i}` : "Aucune voie ajoutée (banque de base : " + op.filter((e) => !e.hq).length + " voies QC)", ae("#ostore").textContent = ec ? "Stockage local : OK" : "Stockage local : bloqué (mode privé ?)", ae("#over").textContent = `BigWallQuest · ${ar} · ${rr} · ${Xf}`, ae("#mver").textContent = `${ar} · ${rr} · ${Xf} · 100 % local`, rp(), Au();
 }
 function rp() {
   mgLabels();
