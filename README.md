@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.19.1)
-Généré le 2026-11-02 · version courante : **L7 v0.19.1** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.19.2)
+Généré le 2026-11-02 · version courante : **L7 v0.19.2** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,12 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.19.2 · 2026-11-02 — Correctif important : la sauvegarde ne se vide plus après avoir rejoint la cordée
+- 🐞 **Cause trouvée :** dès qu'une sauvegarde contenait la cordée automatique (message collé), le jeu plantait au chargement (`Cannot access 'GHRE' before initialization`), croyait la sauvegarde illisible, repartait de l'état de départ et l'enregistrait par-dessus. Les constantes sont maintenant déclarées avant le chargement.
+- 🛡 **Filet de sécurité :** une sauvegarde illisible est copiée (`bwq_l3_v1_rescue`) avant tout, puis relue sans la partie cordée ; elle n'est plus jamais écrasée en silence.
+- 🔎 **Diagnostic :** nouvelle ligne « Erreur de chargement » (⚙ Options).
+- ⚠️ Les sauvegardes déjà vidées ne reviennent pas toutes seules : restaurer le fichier de sauvegarde ou récupérer depuis la carte de cordée.
 
 ### v0.19.1 · 2026-11-02 — Ta carte en ligne est protégée
 - 🛡 **Le jeu n'écrase plus ta carte de cordée par une carte qui a moins de séances** (téléphone vidé, mauvaise copie de l'app). L'envoi est bloqué et un avertissement s'affiche dans Cordée → Synchro.
