@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" role="img" aria-label="Le favori rouvre ta clé, relit ta carte en ligne et te rend ton perso et tes séances">
+  <style>text{font-family:system-ui,sans-serif;font-size:13px;fill:#f2eefc}.t{font-weight:700;font-size:14px}.s{font-size:11.5px;fill:#cfc6ee}.b{fill:#2c2450;stroke:#7c70b8;stroke-width:2}.o{fill:#ff7a2f}.g{fill:#2f6b3a;stroke:#7dde8a;stroke-width:2}.a{stroke:#ffb27a;stroke-width:3;fill:none;marker-end:url(#h)}</style>
+  <defs><marker id="h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ffb27a"/></marker></defs>
+  <rect width="760" height="250" rx="14" fill="#120c24"/>
+  <text x="380" y="26" text-anchor="middle" class="t">BigWallQuest L7 v0.20 · Lien de démarrage · 2026-11-02</text>
+  <rect class="b" x="14" y="50" width="130" height="86" rx="10"/><text x="79" y="80" text-anchor="middle" class="t">🔖 Favori</text><text x="79" y="102" text-anchor="middle" class="s">le lien contient</text><text x="79" y="118" text-anchor="middle" class="s">ta clé + ton prénom</text>
+  <rect class="b" x="164" y="50" width="130" height="86" rx="10"/><text x="229" y="80" text-anchor="middle" class="t">📱 Safari</text><text x="229" y="102" text-anchor="middle" class="s">ouvre le jeu et</text><text x="229" y="118" text-anchor="middle" class="s">relit la clé</text>
+  <rect class="b" x="314" y="50" width="130" height="86" rx="10"/><text x="379" y="80" text-anchor="middle" class="t">☁ Dépôt Cordee</text><text x="379" y="102" text-anchor="middle" class="s">ta carte en ligne</text><text x="379" y="118" text-anchor="middle" class="s">+ celles des amis</text>
+  <rect class="b" x="464" y="50" width="130" height="86" rx="10"/><text x="529" y="80" text-anchor="middle" class="t">🔀 Fusion</text><text x="529" y="102" text-anchor="middle" class="s">ajoute ce qui manque</text><text x="529" y="118" text-anchor="middle" class="s">ne supprime rien</text>
+  <rect class="g" x="614" y="50" width="132" height="86" rx="10"/><text x="680" y="80" text-anchor="middle" class="t">🧗 Ton perso</text><text x="680" y="102" text-anchor="middle" class="s">et tes séances</text><text x="680" y="118" text-anchor="middle" class="s">sont revenus</text>
+  <path class="a" d="M146 93H160"/><path class="a" d="M296 93H310"/><path class="a" d="M446 93H460"/><path class="a" d="M596 93H610"/>
+  <text x="79" y="162" text-anchor="middle" class="s">1 · une seule fois</text><text x="229" y="162" text-anchor="middle" class="s">2 · à chaque ouverture</text><text x="379" y="162" text-anchor="middle" class="s">3 · automatique</text><text x="529" y="162" text-anchor="middle" class="s">4 · automatique</text><text x="680" y="162" text-anchor="middle" class="s">5 · terminé</text>
+  <rect x="60" y="184" width="640" height="16" rx="8" fill="#1a1330" stroke="#ffb27a" stroke-width="2"/><rect class="o" x="62" y="186" width="636" height="12" rx="6"/>
+  <text x="380" y="222" text-anchor="middle" class="s">⏳ pendant ce temps : « Cordée 10 % → 50 % → 100 % » s'affiche en haut de l'écran</text>
+  <text x="380" y="240" text-anchor="middle" class="s">⚠ le lien contient ta clé : ne le partage pas (pour un ami : 📤 Inviter un ami)</text>
+</svg>

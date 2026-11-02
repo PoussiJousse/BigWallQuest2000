@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.19.1)
-Généré le 2026-11-02 · version courante : **L7 v0.19.1** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.20)
+Généré le 2026-11-02 · version courante : **L7 v0.20** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,12 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.20 · 2026-11-02 — Lien de démarrage : ton perso revient à chaque ouverture
+- 🔖 **« Mon lien de démarrage »** (🪢 Cordée → 🔄 Synchro) : un lien à mettre en favori. À chaque ouverture par ce favori, le jeu **relit ta carte sur le dépôt `Cordee`**, recrée ton perso s'il n'existe plus et **y ajoute tes séances manquantes** (fusion : rien n'est supprimé, aucun doublon), puis met à jour les cartes des amis.
+- 📊 **Progression en %** (« Cordée 10 % → 50 % → 100 % ») pendant le retour.
+- 🔒 Le lien contient la clé du dépôt `Cordee` et ton prénom : il se garde sur ton téléphone, ne se partage pas. Aucun nouveau site contacté.
+- 📄 Mode d'emploi : `docs/BigWallQuest_LienDemarrage_L7_v0.20_2026-11-02.md`.
 
 ### v0.19.1 · 2026-11-02 — Ta carte en ligne est protégée
 - 🛡 **Le jeu n'écrase plus ta carte de cordée par une carte qui a moins de séances** (téléphone vidé, mauvaise copie de l'app). L'envoi est bloqué et un avertissement s'affiche dans Cordée → Synchro.
