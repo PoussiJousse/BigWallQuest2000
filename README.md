@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.18.1)
-Généré le 2026-10-20 · version courante : **L7 v0.18.1** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.19)
+Généré le 2026-11-02 · version courante : **L7 v0.19** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,11 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.19 · 2026-11-02 — Bouton « Update » sur les persos d'amis
+- 🔄 **« Choisis ton grimpeur » : bouton Update** sous le radar d'un perso de la cordée. Il relit les cartes de la cordée (même synchro que l'écran Cordée) puis redessine le radar et les stats, sans quitter l'écran.
+- 📊 **Barre de progression en %** pendant la mise à jour, et l'heure de la dernière synchro sous le bouton.
+- 🔒 Aucun nouveau site contacté : réutilise la synchro existante (`api.github.com` ou la liste publique du jeu). Le bouton n'apparaît que sur un perso d'ami ; sans cordée en ligne, un message t'oriente vers Cordée → Synchro.
 
 ### v0.18.1 · 2026-10-20 — Angles des boards
 - 📐 Angles corrigés : **Kilter 0° → 70°**, **Tension 0° → 65°** (TB2 réglable), **MoonBoard 25° ou 40°** (les seuls réglages officiels).
