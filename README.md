@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.19)
-Généré le 2026-11-02 · version courante : **L7 v0.19** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.19.1)
+Généré le 2026-11-02 · version courante : **L7 v0.19.1** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,12 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.19.1 · 2026-11-02 — Ta carte en ligne est protégée
+- 🛡 **Le jeu n'écrase plus ta carte de cordée par une carte qui a moins de séances** (téléphone vidé, mauvaise copie de l'app). L'envoi est bloqué et un avertissement s'affiche dans Cordée → Synchro.
+- 📥 **« Récupérer mes séances ici »** : fusionne la carte en ligne dans ton perso (aucune suppression, aucun doublon).
+- ⬆ **« Envoyer quand même »** : demande confirmation (l'ancienne carte reste dans l'historique GitHub).
+- 🔒 Aucun nouveau site contacté : la lecture se fait sur ton dépôt `Cordee`, déjà utilisé.
 
 ### v0.19 · 2026-11-02 — Bouton « Update » sur les persos d'amis
 - 🔄 **« Choisis ton grimpeur » : bouton Update** sous le radar d'un perso de la cordée. Il relit les cartes de la cordée (même synchro que l'écran Cordée) puis redessine le radar et les stats, sans quitter l'écran.
