@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="system-ui,sans-serif" font-size="14">
+<rect width="760" height="400" fill="#120c24"/>
+<text x="380" y="30" fill="#fff" font-size="18" font-weight="700" text-anchor="middle">BigWallQuest v0.21 · Sauvegarde en ligne + Reconnect (2026-11-14)</text>
+<g fill="#fff" text-anchor="middle">
+<rect x="20" y="70" width="150" height="70" rx="10" fill="#4a416e"/><text x="95" y="102">📱 Ton jeu</text><text x="95" y="122">synchro auto</text>
+<rect x="300" y="70" width="170" height="70" rx="10" fill="#ff7a2f"/><text x="385" y="102">☁ Dépôt Cordee</text><text x="385" y="122">sauvegardes/prénom.json</text>
+<rect x="590" y="70" width="150" height="70" rx="10" fill="#4a416e"/><text x="665" y="102">📱 Nouveau</text><text x="665" y="122">téléphone vide</text></g>
+<path d="M172 105h126" stroke="#7dde8a" stroke-width="3"/><text x="235" y="95" fill="#7dde8a" text-anchor="middle">① envoi (avec clé)</text>
+<path d="M592 105h-120" stroke="#7dde8a" stroke-width="3" stroke-dasharray="6 4"/><text x="530" y="95" fill="#7dde8a" text-anchor="middle">② lecture (sans clé)</text>
+<g fill="#fff" font-size="13"><rect x="20" y="190" width="720" height="190" rx="10" fill="#2c2450" stroke="#7c70b8"/>
+<text x="40" y="220">🔌 Reconnect to my data : Options → Sauvegarde</text>
+<text x="40" y="250">1. Tape ton prénom           ▓▓░░░░░░░░ 15 %  recherche</text>
+<text x="40" y="275">2. Le jeu lit la sauvegarde  ▓▓▓▓▓░░░░░ 50 %  trouvée ✔</text>
+<text x="40" y="300">3. Choisis Fusionner ou Remplacer  ▓▓▓▓▓▓▓▓▓▓ 100 %</text>
+<text x="40" y="335" fill="#ffd27a">🛡 Une sauvegarde en ligne n'est jamais remplacée par une plus petite.</text>
+<text x="40" y="360" fill="#ffd27a">⚠ Dépôt Cordee à mettre en PUBLIC : les données d'escalade deviennent lisibles par tous.</text></g>
+</svg>

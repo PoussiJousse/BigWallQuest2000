@@ -1,7 +1,7 @@
 # BigWallQuest2000
 
-# BigWallQuest — Notes de version (v0.2 → v0.19.2)
-Généré le 2026-11-02 · version courante : **L7 v0.19.2** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
+# BigWallQuest — Notes de version (v0.2 → v0.21)
+Généré le 2026-11-14 · version courante : **L7 v0.21** · fichier unique HTML, hors-ligne, zéro traceur, zéro compte.
 
 > Lecture rapide : le schéma `BigWallQuest_NotesDeVersion_L7_v0.12_2026-10-16.png` résume tout sur une page. Ce fichier donne le détail.
 
@@ -11,6 +11,13 @@ Chaque livraison porte un **lot (L3…L7)** et une **version (v0.x)**. Le compte
 ---
 
 ## L7 — Mettre le jeu entre les mains des amis
+
+### v0.21 · 2026-11-14 — Sauvegarde complète en ligne + bouton « Reconnect to my data »
+- ☁ **Sauvegarde complète automatique :** à chaque synchro de la cordée, le jeu range aussi tout (persos, séances, réglages, voies ajoutées) dans `sauvegardes/<prénom>.json` du dépôt `Cordee`. Aucune clé dedans.
+- 🛡 Une sauvegarde en ligne n'est **jamais remplacée par une plus petite** (téléphone vidé).
+- 🔌 **« Reconnect to my data »** (Options → Sauvegarde) : tape ton prénom, le jeu relit ta sauvegarde en ligne **sans clé ni compte**, puis Fusionner / Remplacer, avec barre de progression en %.
+- ⚠️ Pour que la relecture sans clé marche, le dépôt `Cordee` doit être **public** : les cartes et sauvegardes deviennent lisibles par tout le monde (prévenir les amis).
+- Ancien mode « paquets avec code » et écran Cordée : inchangés. Aucun nouveau site contacté (`api.github.com` déjà autorisé).
 
 ### v0.19.2 · 2026-11-02 — Correctif important : la sauvegarde ne se vide plus après avoir rejoint la cordée
 - 🐞 **Cause trouvée :** dès qu'une sauvegarde contenait la cordée automatique (message collé), le jeu plantait au chargement (`Cannot access 'GHRE' before initialization`), croyait la sauvegarde illisible, repartait de l'état de départ et l'enregistrait par-dessus. Les constantes sont maintenant déclarées avant le chargement.
